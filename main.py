@@ -1,19 +1,27 @@
+import logging
+
 import uvicorn
 from fastapi import FastAPI
 
-import shared
-from server.controller import contas_a_pagar_e_receber_controller, usuario_controller
-from shared.database import engine, Base
+from server.controller import usuario_controller
 
-# from server.models import contas
-#
 # Base.metadata.drop_all(bind=engine)
 # Base.metadata.create_all(bind=engine)
 
+# Configurações de logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.FileHandler("app.log"),
+        logging.StreamHandler()
+    ]
+)
+
 app = FastAPI()
 
-app.include_router(contas_a_pagar_e_receber_controller.router)
 app.include_router(usuario_controller.router)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="localhost", port=8001)

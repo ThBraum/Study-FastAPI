@@ -18,13 +18,11 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-# noinspection PyUnresolvedReferences
-#from server.models.contas_a_pagar_e_receber_model import *
-from server.models.contas_a_pagar_e_receber_model import ContaPagarReceber
+
 # noinspection PyUnresolvedReferences
 from server.models.usuario_model import UsuarioModel
 
-from shared.database import Base
+from server.configuration.database import Base
 
 target_metadata = Base.metadata
 

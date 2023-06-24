@@ -5,7 +5,7 @@ from pydantic import Field
 from pydantic.main import BaseModel
 from sqlalchemy import Column, Integer, String, Numeric
 
-from shared.database import Base
+from server.configuration.database import Base
 
 
 #Base é para criar no db
@@ -14,7 +14,7 @@ from shared.database import Base
 class UsuarioModel(Base):
     __tablename__ = 'usuarios'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     nome = Column(String(30))
     numero = Column(Integer)
     salario = Column(Numeric)
