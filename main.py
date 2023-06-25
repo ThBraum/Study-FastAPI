@@ -3,7 +3,7 @@ import logging
 import uvicorn
 from fastapi import FastAPI
 
-from server.controller import usuario_controller
+from server.controller import usuario_controller, contas_controller
 
 # Base.metadata.drop_all(bind=engine)
 # Base.metadata.create_all(bind=engine)
@@ -22,6 +22,7 @@ logging.basicConfig(
 app = FastAPI()
 
 app.include_router(usuario_controller.router)
+app.include_router(contas_controller.router)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8001)
+    uvicorn.run(app, host="localhost", port=8003)

@@ -3,7 +3,8 @@ from asyncio.log import logger
 
 from sqlalchemy.orm import Session
 
-from server.models.usuario_model import UsuarioModel, UsuarioInput
+from server.models.contas_model import ContasModel, ContasUsuarioOutput, ContasOutput
+from server.models.usuario_model import UsuarioModel, UsuarioInput, UsuarioOutput
 from server.repository.database_repository import get_db
 
 
@@ -38,7 +39,7 @@ class UsuarioRepository:
         entity = await self.get_user_by_id(id_usuario)
         if entity is not None:
             for key, value in data.dict().items():
-                setattr(entity, key, value)
+                setattr(entity, key, value) #entity.key = value
 
             self._db.merge(entity)
             self._db.commit()
@@ -56,3 +57,11 @@ class UsuarioRepository:
             self._db.commit()
 
         return entity
+
+    async def get_contas_by_usuario(self, id_usuario: int) -> ContasUsuarioOutput:
+        logging.info("Starting request repository...")
+
+        user = await self.get_user_by_id(id_usuario)
+        contas = self._db.query(ContasModel).filter_by(usuario_id=id_usuario).all()
+
+        return ContasUsuarioOutput(usuario=user, contas=contas)

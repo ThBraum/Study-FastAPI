@@ -23,10 +23,10 @@ class UsuarioService():
             raise MissingSessionError
 
     async def get_user_by_id(self, id_usuario: int):
-            logging.info("Starting request service...")
-            if await self.repository.get_user_by_id(id_usuario):
-                return await self.repository.get_user_by_id(id_usuario)
-            raise NotFoundException
+        logging.info("Starting request service...")
+        if await self.repository.get_user_by_id(id_usuario):
+            return await self.repository.get_user_by_id(id_usuario)
+        raise NotFoundException
 
     async def create_user(self, data):
         try:
@@ -41,9 +41,14 @@ class UsuarioService():
         if entity is not None:
             return await self.repository.put_entity_by_id(data, id_usuario)
 
-
     async def delete_user_by_id(self, id_usuario: int):
         entity = await self.get_user_by_id(id_usuario)
         if entity is not None:
             return await self.repository.delete_user_by_id(id_usuario)
+        raise NotFoundException
+
+    async def get_contas_by_usuario(self, id_usuario: int):
+        entity = await self.get_user_by_id(id_usuario)
+        if entity is not None:
+            return await self.repository.get_contas_by_usuario(id_usuario)
         raise NotFoundException

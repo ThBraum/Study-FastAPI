@@ -21,6 +21,7 @@ if config.config_file_name is not None:
 
 # noinspection PyUnresolvedReferences
 from server.models.usuario_model import UsuarioModel
+from server.models.contas_model import ContasModel
 
 from server.configuration.database import Base
 

@@ -4,6 +4,7 @@ from typing import Optional
 from pydantic import Field
 from pydantic.main import BaseModel
 from sqlalchemy import Column, Integer, String, Numeric
+from sqlalchemy.orm import relationship
 
 from server.configuration.database import Base
 
@@ -20,6 +21,8 @@ class UsuarioModel(Base):
     salario = Column(Numeric)
     email = Column(String(30))
     senha = Column(String(30))
+
+    contas = relationship("ContasModel", back_populates="usuario")
 
 class UsuarioOutput(BaseModel):
     id: int = Field(None)
